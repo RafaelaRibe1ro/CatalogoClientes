@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nome', 'cpf', 'telefone',
+        'rua', 'bairro', 'numero', 'complemento',
+        'cidade', 'estado', 'cep'
+    ];
+
 }
