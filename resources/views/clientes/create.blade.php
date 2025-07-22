@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Cadastrar Cliente</h2>
+    <h2>Cadastrar Contato</h2>
 
     @if($errors->any())
         <div class="alert alert-danger">

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="text-center mb-4">
-        <h2 class="fw-bold">Editar Cliente</h2>
+        <h2 class="fw-bold">Editar Contato</h2>
     </div>
 
     @if($errors->any())

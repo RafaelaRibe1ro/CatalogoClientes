@@ -75,7 +75,7 @@
         </form>
 
         <a href="{{ route('clientes.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Cadastrar Novo Cliente
+            <i class="bi bi-plus-circle"></i> Cadastrar Novo Contato
         </a>
     </div>
 
@@ -139,7 +139,7 @@
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalClienteLabel{{ $cliente->id }}">
-                            Detalhes do Cliente
+                            Detalhes do Contato
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>

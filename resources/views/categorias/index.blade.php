@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">Categorias</h2>
         <a href="{{ route('clientes.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Voltar para Clientes
+            <i class="bi bi-arrow-left"></i> Voltar para Contatos
         </a>
     </div>
 
