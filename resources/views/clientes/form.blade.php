@@ -60,4 +60,57 @@
             @endforeach
         </select>
     </div>
+
+    <div class="col-md-6">
+        <label>Categoria:</label>
+        <select name="categoria_id" id="categoria_id" class="form-select" required>
+            <option value="">Selecione uma categoria</option>
+            @foreach($categorias as $cat)
+                <option value="{{ $cat->id }}"
+                    {{ old('categoria_id', $cliente->categoria_id ?? '') == $cat->id ? 'selected' : '' }}>
+                    {{ $cat->nome }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label>Subcategoria:</label>
+        <select name="subcategoria_id" id="subcategoria_id" class="form-select" required>
+            <option value="">Selecione uma subcategoria</option>
+            {{-- As opções serão preenchidas via JavaScript --}}
+        </select>
+    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function carregarSubcategorias(categoriaId, selecionada = null) {
+            if (!categoriaId) return;
+
+            fetch(`/api/subcategorias/${categoriaId}`)
+                .then(res => res.json())
+                .then(subs => {
+                    const subSelect = document.getElementById('subcategoria_id');
+                    subSelect.innerHTML = '<option value="">Selecione uma subcategoria</option>';
+                    subs.forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.id;
+                        option.textContent = sub.nome;
+                        if (sub.id == selecionada) option.selected = true;
+                        subSelect.appendChild(option);
+                    });
+                });
+        }
+
+        const categoriaSelect = document.getElementById('categoria_id');
+        categoriaSelect.addEventListener('change', () => {
+            carregarSubcategorias(categoriaSelect.value);
+        });
+
+        // Carrega subcategorias se for edição
+        const catAtual = categoriaSelect.value;
+        const subAtual = `{{ old('subcategoria_id', $cliente->subcategoria_id ?? '') }}`;
+        if (catAtual) carregarSubcategorias(catAtual, subAtual);
+    });
+</script>

@@ -2,16 +2,12 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Editar Cliente</h2>
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Editar Cliente</h2>
+    </div>
 
     @if($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger shadow-sm">
             <strong>Erro!</strong> Verifique os campos obrigatórios.
             <ul class="mb-0 mt-2">
                 @foreach ($errors->all() as $erro)
@@ -21,14 +17,24 @@
         </div>
     @endif
 
-    <form action="{{ route('clientes.update', $cliente) }}" method="POST">
-        @csrf
-        @method('PUT')
-        @include('clientes.form', ['cliente' => $cliente])
-        <div class="mt-4">
-            <button type="submit" class="btn btn-success me-2">Atualizar</button>
-            <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Voltar</a>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <form action="{{ route('clientes.update', $cliente) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                @include('clientes.form', ['cliente' => $cliente])
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save me-1"></i> Atualizar
+                    </button>
+                    <a href="{{ route('clientes.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Voltar
+                    </a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 @endsection

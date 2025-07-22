@@ -2,10 +2,31 @@
 
 @section('content')
 <style>
+/* Fonte maior para todo o site */
+    body {
+        font-size: 1.1rem;
+    }
+
+    /* Fonte maior para inputs e botões */
+    button,
+    .btn,
+    input,
+    select,
+    textarea {
+        font-size: 1.1rem !important;
+    }
+
+    /* Fonte maior nos modais */
+    .modal-body,
+    .modal-title {
+        font-size: 1.1rem;
+    }
+
     /* Padding confortável nas células */
     .custom-table-hover td,
     .custom-table-hover th {
         padding: 1.1rem 1rem;
+        font-size: 1.1rem;
     }
 
     /* Hover suave */
@@ -61,49 +82,92 @@
     <div class="table-responsive">
         <table class="table table-striped table-hover align-middle shadow-sm custom-table-hover">
             <thead class="table-dark">
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Endereço</th>
-                    <th>Data de Cadastro</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-            @forelse($clientes as $cliente)
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Categoria</th>
+                        <th>Subcategoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($clientes as $cliente)
                 <tr>
                     <td>{{ $cliente->nome }}</td>
                     <td>{{ $cliente->cpf }}</td>
                     <td>{{ $cliente->telefone }}</td>
-                    <td>
-                        <strong>{{ $cliente->rua }}, {{ $cliente->numero }}</strong><br>
-                        {{ $cliente->bairro }}<br>
-                        {{ $cliente->cidade }}/{{ $cliente->estado }}<br>
-                        @if($cliente->complemento)
-                            <small>Complemento: {{ $cliente->complemento }}</small><br>
-                        @endif
-                        <small class="text-muted">CEP: {{ $cliente->cep }}</small>
-                    </td>
-                    <td>{{ $cliente->created_at->format('d/m/Y') }}</td>
+                    <td>{{ $cliente->subcategoria->categoria->nome ?? '-' }}</td>
+                    <td>{{ $cliente->subcategoria->nome ?? '-' }}</td>
                     <td>
                         <div class="d-flex flex-column flex-md-row gap-2">
-                            <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-sm btn-warning d-flex align-items-center gap-1">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
-                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" onsubmit="return confirm('Deseja excluir?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger d-flex align-items-center gap-1">
-                                    <i class="bi bi-trash"></i> Excluir
+                            <div class="d-grid w-100">
+                                <button class="btn btn-sm btn-info w-100 d-flex flex-column align-items-center justify-content-center"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalCliente{{ $cliente->id }}">
+                                    <i class="bi bi-eye mb-1"></i>
+                                    Ver Mais
                                 </button>
-                            </form>
+                            </div>
+
+                            <div class="d-grid w-100">
+                                <a href="{{ route('clientes.edit', $cliente) }}"
+                                class="btn btn-sm btn-warning w-100 d-flex flex-column align-items-center justify-content-center">
+                                    <i class="bi bi-pencil-square mb-1"></i>
+                                    Editar
+                                </a>
+                            </div>
+
+                            <div class="d-grid w-100">
+                                <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" onsubmit="return confirm('Deseja excluir?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit"
+                                        class="btn btn-sm btn-danger w-100 d-flex flex-column align-items-center justify-content-center"
+                                        style="height: 100%;">
+                                        <i class="bi bi-trash mb-1"></i>
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </td>
                 </tr>
-            @empty
-                <tr><td colspan="6" class="text-center">Nenhum cliente cadastrado.</td></tr>
-            @endforelse
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalCliente{{ $cliente->id }}" tabindex="-1" aria-labelledby="modalClienteLabel{{ $cliente->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalClienteLabel{{ $cliente->id }}">
+                            Detalhes do Cliente
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nome:</strong> {{ $cliente->nome }}</p>
+                        <p><strong>CPF:</strong> {{ $cliente->cpf }}</p>
+                        <p><strong>Telefone:</strong> {{ $cliente->telefone }}</p>
+                        <p><strong>Categoria:</strong> {{ $cliente->subcategoria->categoria->nome ?? '-' }}</p>
+                        <p><strong>Subcategoria:</strong> {{ $cliente->subcategoria->nome ?? '-' }}</p>
+                        <hr>
+                        <p><strong>Endereço:</strong></p>
+                        <p>{{ $cliente->rua }}, {{ $cliente->numero }}</p>
+                        <p>{{ $cliente->bairro }} - {{ $cliente->cidade }}/{{ $cliente->estado }}</p>
+                        @if($cliente->complemento)
+                            <p>Complemento: {{ $cliente->complemento }}</p>
+                        @endif
+                        <p>CEP: {{ $cliente->cep }}</p>
+                        <p><small><strong>Cadastrado em:</strong> {{ $cliente->created_at->format('d/m/Y') }}</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                @endforeach
+                </tbody>
             </tbody>
         </table>
 

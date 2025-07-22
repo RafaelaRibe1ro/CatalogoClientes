@@ -2,7 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Catálogo de Clientes</title>
+    <title>Catálogo Casa do Construtor</title>
+    <link rel="icon" href="{{ asset('images\logoCasaConstrutor.jpg') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
@@ -73,7 +74,16 @@
         <div class="d-flex align-items-center gap-3">
             {{-- Logo e título --}}
             <img src="{{ asset('images/logoCasaConstrutor.jpg') }}" alt="Logo da Loja" class="logo-img">
-            <h4 class="mb-0 fw-bold text-white">Catálogo de Clientes</h4>
+            <h4 class="mb-0 fw-bold text-white">Catálogo de Contatos</h4>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-2">
+            <a href="{{ route('categorias.index') }}" class="btn btn-warning btn-sm">
+                <i class="bi bi-tags"></i> Categorias
+            </a>
+            <a href="{{ route('subcategorias.index') }}" class="btn btn-warning btn-sm">
+                <i class="bi bi-tag"></i> Subcategorias
+            </a>
         </div>
 
         <div class="dropdown mt-2 mt-md-0">
