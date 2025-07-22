@@ -47,18 +47,18 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome'            => 'required|string|max:255',
-            'cpf'             => ['required','unique:clientes,cpf', new ValidaCpf],
-            'telefone'        => 'required|string|max:20',
-            'rua'             => 'required|string|max:255',
-            'bairro'          => 'required|string|max:255',
-            'numero'          => 'required|string|max:20',
-            'complemento'     => 'nullable|string|max:255',
-            'cidade'          => 'required|string|max:100',
-            'estado'          => 'required|string|max:2',
-            'cep'             => 'required|string|max:9',
-            'categoria_id'    => 'required|exists:categorias,id',
-            'subcategoria_id' => 'required|exists:subcategorias,id',
+            'nome' => 'required|string|max:255',
+            'cpf' => 'nullable|string|max:20',
+            'telefone' => 'nullable|string|max:20',
+            'rua' => 'nullable|string|max:255',
+            'bairro' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:20',
+            'complemento' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:100',
+            'estado' => 'nullable|string|max:2',
+            'cep' => 'nullable|string|max:9',
+            'categoria_id' => 'nullable|exists:categorias,id',
+            'subcategoria_id' => 'nullable|exists:subcategorias,id',
         ]);
 
         Cliente::create($request->all());
@@ -78,18 +78,18 @@ class ClienteController extends Controller
     public function update(Request $request, Cliente $cliente)
     {
         $request->validate([
-            'nome'            => 'required|string|max:255',
-            'cpf'             => ['required','unique:clientes,cpf,'.$cliente->id, new ValidaCpf],
-            'telefone'        => 'required|string|max:20',
-            'rua'             => 'required|string|max:255',
-            'bairro'          => 'required|string|max:255',
-            'numero'          => 'required|string|max:20',
-            'complemento'     => 'nullable|string|max:255',
-            'cidade'          => 'required|string|max:100',
-            'estado'          => 'required|string|max:2',
-            'cep'             => 'required|string|max:9',
-            'categoria_id'    => 'required|exists:categorias,id',
-            'subcategoria_id' => 'required|exists:subcategorias,id',
+            'nome' => 'required|string|max:255',
+            'cpf' => ['nullable', 'string', 'max:20', 'unique:clientes,cpf,' . $cliente->id, new ValidaCpf],
+            'telefone' => 'nullable|string|max:20',
+            'rua' => 'nullable|string|max:255',
+            'bairro' => 'nullable|string|max:255',
+            'numero' => 'nullable|string|max:20',
+            'complemento' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:100',
+            'estado' => 'nullable|string|max:2',
+            'cep' => 'nullable|string|max:9',
+            'categoria_id' => 'nullable|exists:categorias,id',
+            'subcategoria_id' => 'nullable|exists:subcategorias,id',
         ]);
 
         $cliente->update($request->all());
