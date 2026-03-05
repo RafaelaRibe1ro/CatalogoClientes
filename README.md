@@ -1,10 +1,14 @@
-📇 **Catálogo de Clientes**
+# Catálogo de Clientes
 
 Sistema web desenvolvido em Laravel para gerenciamento de clientes de uma loja de materiais de construção.
 
 O objetivo do projeto é permitir o cadastro, organização e busca eficiente de contatos comerciais, facilitando o relacionamento com clientes e profissionais do setor.
 
 Este sistema foi criado para resolver um problema real: organizar contatos de clientes e profissionais que compram na loja, permitindo acesso rápido às informações.
+
+📇 **Problema que o sistema resolve**
+
+Este sistema foi desenvolvido para organizar os contatos comerciais de uma loja de materiais de construção, permitindo acesso rápido às informações de clientes e profissionais do setor através de um sistema web, corrigindo o eventual problema de que seus contatos costumavam ser mantidos em uma única máquina e quando ela estragava todos os dados eram perdidos.
 
 🚀 **Funcionalidades**
 
